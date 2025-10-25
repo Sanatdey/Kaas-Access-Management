@@ -26,6 +26,9 @@ public record UserRequestDto(
 		@NotBlank(message="Password Cannot be Blank!")
 		@Size(min=8 , max=50 , message="Please give more then 8 character password")
 		String password,
+
+        @NotBlank(message = "Role of the User Cannot be Blank")
+        Integer role,
 		
 		List<Integer> accessIds,
 

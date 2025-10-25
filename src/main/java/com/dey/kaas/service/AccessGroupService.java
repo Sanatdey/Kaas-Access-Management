@@ -35,6 +35,18 @@ public class AccessGroupService {
 	public AccessGroup getAccessGroup(Integer id) {
 		return accessGroupRepository.findById(id).orElseThrow( () ->  new CompanyNotFoundException("exp") );
 	}
-	
 
+    public ResponseEntity<?> updateAccessGroup(int id, AccessGroupRequestDto dto) {
+        AccessGroup accessGroup = getAccessGroup(id);
+        AccessGroup a = mapper.toEntity(dto);
+        accessGroup.setName(a.getName());
+        accessGroup.setAccesses(a.getAccesses());
+        return ResponseEntity.ok().body(accessGroupRepository.save(accessGroup));
+    }
+
+    public ResponseEntity<?> deleteAccessGroup(int id) {
+        AccessGroup accessGroup = getAccessGroup(id);
+        accessGroupRepository.delete(accessGroup);
+        return ResponseEntity.ok().build();
+    }
 }

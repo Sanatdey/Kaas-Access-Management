@@ -1,10 +1,7 @@
 package com.dey.kaas.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.dey.kaas.dto.request.CompanyRequestDto;
 import com.dey.kaas.service.CompanyService;
@@ -18,7 +15,6 @@ public class CompanyController {
 		this.companyService = companyService;
 	}
 	
-	
 	@GetMapping("/companies")
 	public ResponseEntity<?> getAllCompanies() {
 		return companyService.getAllCompany();
@@ -29,5 +25,14 @@ public class CompanyController {
 		return companyService.addCompany(dto);
 	}
 
+    @PutMapping("/companies/{id}")
+    public ResponseEntity<?> updateCompanies(@PathVariable int id, @RequestBody CompanyRequestDto dto) {
+        return companyService.updateCompany(id, dto);
+    }
+
+    @DeleteMapping("/companies/{id}")
+    public ResponseEntity<?> addCompany(@PathVariable int id) {
+        return companyService.deleteCompany(id);
+    }
 
 }

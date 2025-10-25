@@ -2,6 +2,8 @@ package com.dey.kaas.service;
 
 import java.util.List;
 
+import com.dey.kaas.dto.request.ActionRequestDto;
+import com.dey.kaas.entiity.Action;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -34,8 +36,20 @@ public class CompanyService {
 
 	public Company getCompany(Integer companyId) {
 		return companyRepository.findById(companyId).orElseThrow( () ->  new CompanyNotFoundException("exp") );
-		
 	}
 
+    public ResponseEntity<Company> updateCompany(int id, CompanyRequestDto dto) {
+        Company company = getCompany(id);
+        Company c = mapper.toEntity(dto);
+        company.setName(c.getName());
+        company.setGstNumber(c.getGstNumber());
+        return ResponseEntity.ok().body(companyRepository.save(company));
+    }
+
+    public ResponseEntity<?> deleteCompany(int id) {
+        Company company = getCompany(id);
+        companyRepository.delete(company);
+        return ResponseEntity.ok().build();
+    }
 
 }

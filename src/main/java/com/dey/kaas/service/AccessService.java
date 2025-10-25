@@ -43,8 +43,22 @@ public class AccessService {
 	}
 	
 	public List<Access> getAccesses(List<Integer> ids){
-		return ids.stream().map(i -> getAccess(i)).toList();
+		return ids.stream().map(this::getAccess).toList();
 	}
-	
+
+    public ResponseEntity<Access> updateAccess(int id , AccessRequestDto dto){
+        Access access = getAccess(id);
+        Access a = mapper.toEntity(dto);
+        access.setAction(a.getAction());
+        access.setName(a.getName());
+        return ResponseEntity.ok().body(accessRepository.save(access));
+    }
+
+    public ResponseEntity<Access> deleteAccess(int id){
+        Access access = getAccess(id);
+        accessRepository.delete(access);
+        return ResponseEntity.ok().build();
+    }
+
 
 }

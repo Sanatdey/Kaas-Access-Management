@@ -13,6 +13,7 @@ public record UserResponseDto(
 		String email,
 		String phoneNumber,
 		CompanyResponseDto company,
+        String role,
 		List<AccessGroupResponseDto> accessgroups,
 		List<AccessResponseDto> accesses,
 		LocalDateTime created_at,
