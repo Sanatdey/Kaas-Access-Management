@@ -37,7 +37,20 @@ public class ActionService {
 	}
 	
 	public List<Action> getActions(List<Integer> ids){
-		return ids.stream().map(i -> getAction(i)).toList();
+		return ids.stream().map(this::getAction).toList();
 	}
+
+    public ResponseEntity<Action> updateAction(int id,ActionRequestDto dto) {
+        Action action = getAction(id);
+        Action a = mapper.toEntity(dto);
+        action.setName(a.getName());
+        return ResponseEntity.ok().body(actionRepository.save(action));
+    }
+
+    public ResponseEntity<?> deleteAction(int id) {
+        Action action = getAction(id);
+        actionRepository.delete(action);
+        return ResponseEntity.ok().build();
+    }
 
 }

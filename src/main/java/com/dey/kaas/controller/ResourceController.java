@@ -1,10 +1,7 @@
 package com.dey.kaas.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.dey.kaas.dto.request.ResourceRequestDto;
 import com.dey.kaas.service.ResourceService;
@@ -28,5 +25,15 @@ public class ResourceController {
 	public ResponseEntity<?> addResourceType(@RequestBody ResourceRequestDto dto) {
 		return resourceService.addResource(dto);
 	}
+
+    @PutMapping("/resources/{id}")
+    public ResponseEntity<?> updatedResourceType(@PathVariable int id, @RequestBody ResourceRequestDto dto) {
+        return resourceService.updateResource(id,dto);
+    }
+
+    @DeleteMapping("/resources/{id}")
+    public ResponseEntity<?> deleteResourceType(@PathVariable int id) {
+        return resourceService.deleteCompany(id);
+    }
 
 }

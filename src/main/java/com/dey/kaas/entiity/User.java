@@ -44,7 +44,7 @@ public class User {
 	@Column(name="phone_number")
 	private String phoneNumber;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name="company_id", nullable = false)
 	private Company company;
 	
@@ -56,6 +56,9 @@ public class User {
 	
 	@ManyToMany
 	private List<Access> accesses;
+
+    @Column(name = "role_id")
+    private int role;
 	
 	@Column(updatable = false,nullable = false,name="created_at")
 	private LocalDateTime created_at;
@@ -75,4 +78,8 @@ public class User {
 		LocalDateTime now = LocalDateTime.now();
 		this.updated_at= now;
 	}
+
+    public String getRoleEnum(){
+        return ROLE.fromValue(role).name();
+    }
 }

@@ -1,5 +1,6 @@
 package com.dey.kaas.mapper;
 
+import com.dey.kaas.entiity.ROLE;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -9,7 +10,8 @@ import com.dey.kaas.entiity.User;
 
 @Mapper(componentModel = "spring", uses = {CompanyMapper.class, AccessMapper.class, AccessGroupMapper.class})
 public interface UserMapper {
-	
+
+    @Mapping(target = "role", source = "roleEnum")
 	UserResponseDto toDto(User user);
 	
 	@Mapping(target = "company", ignore = true)
