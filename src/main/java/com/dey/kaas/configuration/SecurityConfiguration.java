@@ -3,18 +3,14 @@ package com.dey.kaas.configuration;
 import com.dey.kaas.entiity.ROLE;
 import com.dey.kaas.filter.JwtFilter;
 import com.dey.kaas.service.CustomeUserDetailsService;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.authentication.configurers.userdetails.DaoAuthenticationConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -34,7 +30,7 @@ public class SecurityConfiguration {
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http.cors(cust -> cust.disable())
 		.csrf(cust -> cust.disable())
-		.authorizeHttpRequests(request -> request.requestMatchers("login/**","register/**").permitAll()
+		.authorizeHttpRequests(request -> request.requestMatchers("login/**","register/**","/actuator/**","/swagger-ui/**","v3/api-docs/**").permitAll()
                 .requestMatchers("/action/**","/companies/**").hasAnyAuthority(ROLE.ROLE_SUPER_ADMIN.name(), ROLE.ROLE_ADMIN.name())
                 .requestMatchers("/resources/types/**", "/resources/**","/accesses/**","/accessGroups/**","/users/**").hasAnyAuthority(ROLE.ROLE_SUPER_ADMIN.name(), ROLE.ROLE_ADMIN.name(), ROLE.ROLE_COMPNAY_ADMIN.name())
 				.anyRequest().authenticated())
